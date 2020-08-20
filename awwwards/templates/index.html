@@ -117,6 +117,96 @@
                                 <span>We need your vote!</span>
                             </div>
                         </div>
-                        
-                
+                        <div class="grid js-grid" id="items-row">
+                            <ul class="list-items list-flex list-one-row js-elements-container">
+                                {% for image in all_images%}
+                                <li class="col-3 js-collectable">
+                                    <div class="box-item">
+                                        <figure class="rollover ">
+                                            <a href="/">
+                                                <div class="box-photo">
+                                                    {% if image.image %}
+                                                    <img src="{{image.image.url}}" alt="Our Place" style="width: 100%; height: 300px;"> {% endif %}
+
+                                                </div>
+                                            </a>
+
+                                            <div class="hover-item top ">
+                                                <span class="js-options-collectable "></span>
+
+                                                <span class="bt-item bt-default bt-likeit js-bt-like js-collect-like "><p style="color: white; "><b><small>Collect</small></b></p><svg class="ico-svg " viewbox="0 0 15 14 "><use xlink:href="https://www.awwwards.com/assets/images/sprite-icons.svg#heart "></use></svg>
+                                                    <p> {{design}}</p> 
+
+                                                </span>
+                                            </div>
+
+                                            <div class="hover-item bottom ">
+                                                <a class="js-visit-item bt-item bt-link " href="{{image.link}} " data-identifier="our-place " data-type="submission " target="_blank " rel="noopener nofollow ">
+                                                    <i class="fas fa-share " style="color: white; "></i>
+                                                    <use xlink:href="https://www.awwwards.com/assets/images/sprite-icons.svg#link "></use>
+                                                    </svg>
+                                                </a>
+                                            </div>
+
+                                            <div class="hover-item center ">
+                                                <a href="{% url 'project' image.title %} " class="bt-default white-fill large vote-now ">VOTE
+                                                NOW</a>
+                                            </div>
+                                        </figure>
+
+                                        <div class="box-info ">
+                                            <div class="content ">
+                                                <div class="row ">
+                                                    <h3><a href="/ ">{{image.title}}</a></h3>
+                                                </div>
+                                                <div class="row row-2col ">
+                                                    <div class="box-left ">From United States</div>
+
+                                                    <div class="box-right ">
+                                                        {{date|date:"l d-F Y "}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="footer style2 ">
+                                                <div class="box-left ">
+                                                    <div class="box-byuser js-tooltip-user ">
+                                                        <div class="item js-user " data-username="thecouch ">
+                                                            <a href=" ">
+                                                                {% if user.is_authenticated%}
+                                                            <img src="{{user.profile.profile_picture.url}} "
+                                                                 width="27 "
+                                                                 height="27 " alt="{{image.title}} " class="lazy "/>
+                                                        
+                                                        {% else %}
+                                                        {{image.profile_picture.url}}
+                                                        <img src=" "
+                                                                 width="27 "
+                                                                 height="27 " alt="{{image.title}} " class="lazy "/>
+                                                        {% endif %}
+                                                    </a>
+                                                        </div>
+                                                        <div class="by ">
+                                                            by <strong><a href="{% url 'profile' image.user.username%} "
+                                                                      class="text-black ">{{image.user.username}}</a></strong>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="box-right ">
+                                                    <ul class="list-tags size-small ">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>             
 {% endblock%}
