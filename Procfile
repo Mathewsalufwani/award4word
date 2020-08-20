@@ -1,0 +1,1 @@
+web: gunicorn award4word.wsgi --log-file -
