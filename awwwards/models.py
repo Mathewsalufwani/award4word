@@ -7,7 +7,7 @@ import datetime as dt
 # Create your models here.
 class Profile(models.Model):
     profile_picture = CloudinaryField('image')
-    
+    user_profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(default="bio")
     contact = models.CharField(max_length=200, blank=True)
     profile_Id = models.IntegerField(default=0)
@@ -37,7 +37,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     details = models.TextField()
     link = models.CharField(max_length=100)
-    
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
     image = CloudinaryField('image')
     user_project_id = models.IntegerField(default=0)
     design = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
@@ -74,3 +74,21 @@ class Project(models.Model):
     class Meta:
         db_table = 'projects'
         ordering = ['-id']
+
+class Rate(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    post = models.ForeignKey(Project, on_delete=models.PROTECT, related_name='likes', null=True)
+    design = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    usability = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], null=True)
+    creativity = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    content = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    average = models.IntegerField(default=0)
+
+    def save_rate(self):
+        self.save()
+
+    def delete_rate(self):
+        self.delete()
+
+    class Meta:
+        db_table = 'ratings'
