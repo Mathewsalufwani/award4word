@@ -30,7 +30,7 @@ router.register(r'projects', ProfileViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^', include('awwards.urls')),
+    url(r'^', include('awwwards.urls')),
     url('accounts/register/', RegistrationView.as_view(success_url='/accounts/login/'), name='django_registration_register'),
     url('accounts/', include('django_registration.backends.one_step.urls')),
     url('accounts/', include('django.contrib.auth.urls')),
