@@ -11,7 +11,7 @@ class Profile(models.Model):
     bio = models.TextField(default="bio")
     contact = models.CharField(max_length=200, blank=True)
     profile_Id = models.IntegerField(default=0)
-    
+    all_projects = models.ForeignKey('Project', on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.bio
@@ -32,3 +32,45 @@ class Profile(models.Model):
 
     class Meta:
         db_table = 'profiles'
+
+class Project(models.Model):
+    title = models.CharField(max_length=100)
+    details = models.TextField()
+    link = models.CharField(max_length=100)
+    
+    image = CloudinaryField('image')
+    user_project_id = models.IntegerField(default=0)
+    design = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    usability = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    creativity = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    content = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    vote_submissions = models.IntegerField(default=0)
+    # pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    def save_post(self):
+        self.save()    
+
+    @classmethod
+    def fetch_all_images(cls):
+        all_images = Project.objects.all()
+        return all_images
+
+    @classmethod
+    def get_single_project(cls, project):
+        project = cls.objects.get(id=project)
+        return project
+
+    @classmethod
+    def search_project_by_title(cls, search_term):
+        results = cls.objects.filter(title__icontains=search_term)
+        return results
+
+    def delete_comment(self):
+        self.delete()    
+
+    class Meta:
+        db_table = 'projects'
+        ordering = ['-id']
