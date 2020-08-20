@@ -21,3 +21,21 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('title', 'details', 'link', 'image')
+
+class UpdateUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+
+class UpdateUserProfileForm(forms.ModelForm):
+    profile_picture = CloudinaryFileField(
+    options = { 
+      'tags': "directly_uploaded",
+      'crop': 'limit', 'width': 1000, 'height': 1000,
+      'eager': [{ 'crop': 'fill', 'width': 150, 'height': 100 }]
+    })
+
+    class Meta:
+        model = Profile
+        fields = ['profile_picture', 'bio', 'contact']
