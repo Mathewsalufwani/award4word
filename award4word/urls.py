@@ -20,7 +20,7 @@ from django.contrib.auth import views
 from django.contrib.auth import views as auth_views
 from django_registration.backends.one_step.views import RegistrationView
 from rest_framework import routers
-from awwards.views import ProfileViewSet,UserViewSet,ProfileViewSet
+from awwwards.views import ProfileViewSet,UserViewSet,ProfileViewSet
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
