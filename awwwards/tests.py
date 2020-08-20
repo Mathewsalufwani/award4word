@@ -47,8 +47,7 @@ class ProjectTest(TestCase):
 class RateTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(id=1, username='cecilia')
-        self.post = Project.objects.create(id=1, title='test post', image='https://ucarecdn.com/0ccf61ff-508e-46c6-b713-db51daa6626e', details='desc',
-                                        user=self.user, link='http://ur.coml')
+        self.post = Project.objects.create(id=1, title='test post', image='https://ucarecdn.com/0ccf61ff-508e-46c6-b713-db51daa6626e', details='desc', user=self.user, link='http://ur.coml')
         self.rating = Rate.objects.create(id=1, design=6, usability=7, creativity=9, content=9, user=self.user, post=self.post)
 
     def test_instance(self):
